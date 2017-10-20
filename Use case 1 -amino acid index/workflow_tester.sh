@@ -2,13 +2,13 @@
 # workflow tester
 
 # define the command line arguments of the various steps
-STEP[1]="comet -Pcomet.params -NE_coli_ion_trap -Dup000000318.fasta E_coli_ion_trap.mzXML"
-STEP[2]="tandem tandem.params"
-STEP[3]="Tandem2XML E_coli_ion_trap.tandem E_coli_ion_trap.pep.xml"
-STEP[4]="xinteract -NE_coli.interact.pep.xml -p0.05 -l7 -O E_coli_ion_trap.pep.xml"
-STEP[5]="./pepXML2SSRCalc.sh e_coli_ion_trap.interact.pep.xml peptides.txt"
-STEP[6]="RTCalc TRAIN=peptides.txt"
-STEP[7]="./rt -i e_coli_ion_trap.interact.pep.xml -f tab"
+STEP[1]="/usr/local/tpp/bin/comet -Pcomet.params -NE_coli_ion_trap -Dup000000318.fasta E_coli_ion_trap.mzXML"
+STEP[2]="/usr/local/tpp/bin/tandem tandem_params.xml"
+STEP[3]="/usr/local/tpp/bin/Tandem2XML E_coli_ion_trap.tandem E_coli_ion_trap.pep.xml"
+STEP[4]="/usr/local/tpp/bin/xinteract -NE_coli_ion_trap.interact.pep.xml -p0.95 -l7 -O E_coli_ion_trap.pep.xml"
+STEP[5]="./pepXML2SSRCalc.sh E_coli_ion_trap.interact.pep.xml peptides.txt"
+STEP[6]="/usr/local/tpp/bin/RTCalc TRAIN=peptides.txt"
+STEP[7]="rt4/rt -i E_coli_ion_trap.interact.pep.xml -f tab"
 
 # put the steps together in different workflows and run
 ${STEP[1]}; ${STEP[4]}; ${STEP[5]}; ${STEP[6]} > model_1.txt
