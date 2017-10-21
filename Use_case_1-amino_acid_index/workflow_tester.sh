@@ -1,6 +1,9 @@
 #!/usr/bin/bash
 # workflow tester
 
+# download data:
+wget http://cpm.luml.nl/export/public_datasets/E_coli_ion_trap.interact.pep.xml
+
 # define the command line arguments of the various steps
 STEP[1]="/usr/local/tpp/bin/comet -Pcomet.params -NE_coli_ion_trap -Dup000000318.fasta E_coli_ion_trap.mzXML"
 STEP[2]="/usr/local/tpp/bin/tandem tandem_params.xml"

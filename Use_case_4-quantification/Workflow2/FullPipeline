@@ -3,7 +3,7 @@
 # convert files to mzML
 for file in "../iT*.mgf"
 do
-    /usr/local/tpp/bin/msconvert --mzML "$file" -o "./"
+    msconvert --mzML "$file" -o "./"
 done
 
 # run comet on mzml
@@ -12,7 +12,7 @@ for file in *.mzML
 do
     echo $file
     ((i++))
-    /usr/local/tpp/bin/comet -Pcomet_iTRAQ.params -Nout"$file" -D"../swissprotHuman.fasta" "$file"
+    comet -Pcomet_iTRAQ.params -Nout"$file" -D"../swissprotHuman.fasta" "$file"
 done
 # Change "index=n" to "index=n+1" to orrect wrong ID assignment PeptideProphet
 for file in out*.pep.xml
@@ -22,7 +22,7 @@ do
 done
 
 # apply peptideProphet + Libra
-/usr/local/tpp/bin/xinteract -N"iTRAQ_full.interact.pep.xml" -+0.05 -dDECOY_ -l7 -iP -PPM -OH -pO ./*.pep.xml -Llibra_condition.xml -Op #STY,79.966331-MZTOL=0.05 -M-STY,79.966331-M,15.9949-n,42.010565-KnY,144.102062-MZTOL=0.05
+xinteract -N"iTRAQ_full.interact.pep.xml" -+0.05 -dDECOY_ -l7 -iP -PPM -OH -pO ./*.pep.xml -Llibra_condition.xml -Op #STY,79.966331-MZTOL=0.05 -M-STY,79.966331-M,15.9949-n,42.010565-KnY,144.102062-MZTOL=0.05
 
 
 # For extraction of data, see R script in work package 1

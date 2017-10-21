@@ -17,6 +17,7 @@ USER root
 WORKDIR /usr/local/
 RUN apt-get update && apt-get install -y libfindbin-libs-perl && apt-get clean all
 RUN wget https://github.com/BioContainers/software-archive/releases/download/TPP/tpp-5.0.zip && unzip tpp-5.0.zip
+RUN chmod a+x /usr/local/tpp/bin/*
 ENV PATH /usr/local/tpp/bin/:$PATH USER biodocker
 WORKDIR /data/
 
@@ -59,7 +60,14 @@ ENV PATH /home/biodocker/bin/SearchGUI:$PATH WORKDIR /data/
 	
 ## install additional R packages using R RUN > rscript.R &&echo 'source("https://bioconductor.org/biocLite.R")' >> rscript.R &&echo 'biocLite(ask=FALSE)' >> rscript.R 	#&&echo 'biocLite("BiocUpgrade")' >> rscript.R &&echo 'biocLite("Biobase",ask=FALSE)' >> rscript.R &&echo 'biocLite("stringr",ask=FALSE)' >> rscript.R 	&&echo 'biocLite("isobar",ask=FALSE)' >> rscript.R &&echo 'biocLite("mzID",ask=FALSE)' >> rscript.R &&echo 'biocLite("XML",ask=FALSE)' >> rscript.R &&echo 'biocLite("venneuler",ask=FALSE)' >> rscript.R &&echo 'biocLite("svglite",ask=FALSE)' >> rscript.R &&echo 'biocLite("matrixStats",ask=FALSE)' >> rscript.R 	&&Rscript rscript.R
 
+# install protk
+RUN apt-get install -y ruby-dev libxml2-dev libgsl0-dev libxml-parser-perl && apt-get clean all
+RUN gem install protk
+
 WORKDIR /data/
 
 ## Files for use cases
 COPY ./ UseCases
+# compile rt
+RUN cd "UseCases/Use_case_1-amino_acid_index/rt4/" && gcc -o rt rt4.c  -lgsl -lgslcblas -lpepXML -LpepXMLLib    
+
