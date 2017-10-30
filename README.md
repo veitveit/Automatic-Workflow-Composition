@@ -17,4 +17,4 @@ E.g. Use case 3 workflow 1:
 _docker run -it workflow-composition_   
 _cd UseCases/Use_case_3-PTM_identification/Workflow1_   
 _bash FullPipeline_   
-You can also run the R scripts with _R CMD BATCH GivenRScriptName_ and/or extract the files with _docker cp _
+You can also run the R scripts with _R CMD BATCH GivenRScriptName_ and/or extract the files with _docker cp_
