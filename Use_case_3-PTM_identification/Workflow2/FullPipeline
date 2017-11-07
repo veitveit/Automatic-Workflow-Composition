@@ -38,7 +38,7 @@ done
 
 
 # peptideProphet 
-xinteract -N"CometOut.interact.pep.xml" -dDECOY_ -p0.05 -l7 -iP -PPM -OH -Op *.pep.xml -M-STY:79.96633,M:15.9949,KR:14.0157,KR:28.0313,K:42.04695,Y:79.956815,K:42.010565-MZTOL=0.1-PPMTOL=50# -M-STY:79.96633,M:15.9949,NQ:0.98402,K:42.010565-MZTOL=0.1-PPMTOL=50
+xinteract -N"CometOut.interact.pep.xml" -dDECOY_ -p0.05 -l7 -iP -PPM -OH -Op *.pep.xml -M-STY:79.96633,M:15.9949,KR:14.0157,KR:28.0313,K:42.04695,Y:79.956815,K:42.010565-MZTOL=0.1-PPMTOL=50
 
 #  convert pepxml file to csv using protk package (https://github.com/iracooke/protk) 
 pepxml_to_table.rb CometOut.interact.pep.xml -o CometOut.interact.pep.csv

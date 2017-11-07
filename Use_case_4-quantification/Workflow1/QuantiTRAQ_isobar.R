@@ -5,7 +5,6 @@ library(mzID)
 library(matrixStats)
 library(venneuler)
 
-setwd("~/devel/Proteomics/TavernaWorkflows/iTRAQQuantPXD002170/Workflow1")
 
 # filenames
 ident_file <- "iTRAQ_test_1_Default_PSM_Report.txt"
@@ -69,7 +68,9 @@ length(intersect(as.character(W2Prot[,1]),rownames(prot1)))
 # Venn of protein identifications
 venn <- venneuler(rbind(cbind(as.character(rownames(prot1)),paste("Workflow 1:",nrow(prot1))),
                   cbind(as.character(W2Prot[,1]),paste("\n\nWorkflow 2:",nrow(W2Prot)))))
-# venn$labels <- paste(venn$labels,c(length(pepsW1),length(pepsW2),length(pepsW3)),sep="\n")
+#
+
+ venn$labels <- paste(venn$labels,c(length(pepsW1),length(pepsW2),length(pepsW3)),sep="\n")
 
 plot(venn,main="Common protein identifications: 1742")
 

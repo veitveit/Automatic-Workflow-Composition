@@ -3,7 +3,6 @@ library(svglite)
 library(XML)
 
 
-setwd("~/devel/Proteomics/TavernaWorkflows/iPRG2012/")
 W1 <- read.csv("Workflow1/iPRG2012_test_1_Default_PSM_Report.txt",sep="\t")
 
 W2 <- xmlRoot(xmlTreeParse("Workflow2/CometOut.interact.ptm.ipro.pep.xml"))
@@ -180,7 +179,7 @@ protsW2 <- unique(FilteredW2$protein)
 #                                         table(sapply(protsW3, nchar)<4)["TRUE"]),")",sep="")
 venn <- venneuler(rbind(cbind(as.character(protsW1),"Workflow 1"),cbind(as.character(protsW2),"Workflow 2")))
 venn$labels <- paste(venn$labels,c(length(protsW1),length(protsW2)),sep="\n")
-# venn$labels <- paste(venn$labels," (",c(table(sapply(protsW1, nchar)<4)["TRUE"],table(sapply(protsW2, nchar)<4)["TRUE"]),")",sep="")
+ venn$labels <- paste(venn$labels," (",c(table(sapply(protsW1, nchar)<4)["TRUE"],table(sapply(protsW2, nchar)<4)["TRUE"]),")",sep="")
 plot(venn,main="Common proteins")
 intersect(protsW1,protsW2)
 # intersect(protsW1,intersect(protsW2,protsW3))
@@ -188,8 +187,8 @@ intersect(protsW1,protsW2)
 pepsW1 <- unique(FilteredW1$Modified.Sequence)
 pepsW2 <- unique(FilteredW2$W2Seqs)
 pepsW3 <- W3[,1]
-# venn <- venneuler(rbind(cbind(as.character(pepsW1),"Workflow 1"),cbind(as.character(pepsW2),"Workflow 2"),cbind(as.character(pepsW3),"Original data")))
-# venn$labels <- paste(venn$labels,c(length(pepsW1),length(pepsW2),length(pepsW3)),sep="\n")
+ venn <- venneuler(rbind(cbind(as.character(pepsW1),"Workflow 1"),cbind(as.character(pepsW2),"Workflow 2"),cbind(as.character(pepsW3),"Original data")))
+ venn$labels <- paste(venn$labels,c(length(pepsW1),length(pepsW2),length(pepsW3)),sep="\n")
 venn <- venneuler(rbind(cbind(as.character(pepsW1),"Workflow 1"),cbind(as.character(pepsW2),"Workflow 2"),
                         cbind(as.character(pepsW3),"Synthetic peptides")))
 venn$labels <- paste(venn$labels,c(length(pepsW1),length(pepsW2),length(pepsW3)),sep="\n")
@@ -203,6 +202,8 @@ intersect(pepsW1,intersect(pepsW2,pepsW3))
 # protsWithCommonPeps <- sort(unique(FilteredW2[FilteredW2$predictedPep1 %in% commonPeps,1]))
 # dev.off()
 par(mfrow=c(1,1))
+
+
 
 ## table of found PTMs
 foundModTypes <- rbind(c(length(grep("p",pepsW1)),length(grep("p",pepsW2)),length(grep("p",pepsW3))),
