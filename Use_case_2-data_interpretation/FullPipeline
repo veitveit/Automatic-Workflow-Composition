@@ -21,18 +21,18 @@ do
     /usr/local/tpp/bin/ProteinProphet interact-${file}_interact.pep.xml $file.prot.xml MINPROB=0.95
 done
 
-# get uniprot accession names from  prot.xml files
+# get uniprot accession names from  prot.xml files with assigned probability 1.000
 rm UniprotAccs.txt UniprotIDs.txt
 for file in *.prot.xml
 do
-    grep -o '<protein protein_name=\"[a-z]*|[A-Z,0-9]*' $file | grep -o '[A-Z,0-9]*' >> UniprotAccs.txt
-grep -o '<protein protein_name=\"[a-z]*|[A-Z,0-9]*|[A-Z,0-9]*_[A-Z]*' $file | grep -o '[A-Z,0-9]*_[A-Z]\{1,\}' >> UniprotIDs.txt
+    grep '<protein protein' $file | grep 'probability=\"1.0' - | grep -o '<protein protein_name=\"[a-z]*|[A-Z,0-9]*' - | grep -o '[A-Z,0-9]*' >> UniprotAccs.txt
+grep '<protein protein' $file | grep 'probability=\"1.0' - | grep -o '<protein protein_name=\"[a-z]*|[A-Z,0-9]*|[A-Z,0-9]*_[A-Z]*' - | grep -o '[A-Z,0-9]*_[A-Z]\{1,\}' >> UniprotIDs.txt
 done
 # remove multiple entries and reduce to the first 500 entries
 awk '!a[$0]++' UniprotAccs.txt > t
-head -n500 t >  UniprotAccs.txt
+mv t  UniprotAccs.txt
 awk '!a[$0]++' UniprotIDs.txt > t
-head -n500  t >  UniprotIDs.txt
+mv  t  UniprotIDs.txt
 
 #tr '\n' ','  < UniprotAccs.txt > UniprotAccsComma.txt
 tr '\n' ','  < UniprotIDs.txt > UniprotIDsComma.txt
