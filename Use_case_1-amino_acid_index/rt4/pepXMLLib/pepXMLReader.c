@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "pepxmlDefs.h"
+#include "pepXMLDefs.h"
 #include "pepXMLReader.h"
 #include "pepXMLReaderDefs.h"
 #include "pepXMLDelegates.h"
